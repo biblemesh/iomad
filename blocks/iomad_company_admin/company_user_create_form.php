@@ -66,8 +66,8 @@ $PAGE->set_heading($linktext);
 $output = $PAGE->get_renderer('block_iomad_company_admin');
 
 // Javascript for fancy select.
-// Parameter is name of proper select form element followed by 1=submit its form
-$PAGE->requires->js_call_amd('block_iomad_company_admin/department_select', 'init', array('deptid', 1, optional_param('deptid', 0, PARAM_INT)));
+$PAGE->requires->js_call_amd('block_iomad_company_admin/company_user', 'init', []);;
+$PAGE->requires->js_call_amd('block_iomad_company_admin/department_select_nosub', 'init', array('deptid', 1, optional_param('deptid', 0, PARAM_INT)));
 
 // Set the companyid
 $companyid = iomad::get_my_companyid($context);
