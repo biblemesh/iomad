@@ -24,6 +24,15 @@
 * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
 */
 
+// IOMAD
+require_once($CFG->dirroot . '/local/iomad/lib/company.php');
+$companyid = iomad::get_my_companyid(context_system::instance(), false);
+if ($companyid > 0) {
+    $postfix = "_$companyid";
+} else {
+    $postfix = "";
+}
+
 if ($hassiteconfig) {
     /* @var admin_root $ADMIN */
     $ADMIN->locate('modules')->set_sorting(true);
