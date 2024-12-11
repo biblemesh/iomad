@@ -1166,7 +1166,7 @@ class manager {
         $companyid = \iomad::get_my_companyid(\context_system::instance(), false);
         if ($companyid > 0) {
             $company = new \company($companyid);
-            $companycontext = \core\context\company::instance($companyid);
+            $companycontext = \context_system::instance();
             $companycourses = array_keys($company->get_menu_courses(true, false, false, false, false, true));
         } else {
             $companycourses = [];
