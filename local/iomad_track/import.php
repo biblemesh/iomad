@@ -333,6 +333,7 @@ if (!empty($fileimport)) {
             echo $OUTPUT->header();
             $mform->display();
             echo $OUTPUT->footer();
+            die;
         }
     }
 
