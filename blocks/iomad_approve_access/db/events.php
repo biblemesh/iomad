@@ -28,37 +28,30 @@ defined('MOODLE_INTERNAL') || die();
 $observers = array(
 
     array(
-        'eventname'   => '\mod_trainingevent\event\attendance_changed',
-        'callback'    => 'mod_trainingevent_observer::attendance_changed',
-        'includefile' => '/mod/trainingevent/classes/observer.php',
-        'internal'    => false,
-    ),
-
-    array(
-        'eventname'   => '\mod_trainingevent\event\user_attending',
-        'callback'    => 'mod_trainingevent_observer::user_attending',
-        'includefile' => '/mod/trainingevent/classes/observer.php',
+        'eventname'   => '\mod_trainingevent\event\trainingevent_reset',
+        'callback'    => 'block_iomad_approve_access_observer::trainingevent_reset',
+        'includefile' => '/blocks/iomad_approve_access/classes/observer.php',
         'internal'    => false,
     ),
 
     array(
         'eventname'   => '\mod_trainingevent\event\user_removed',
-        'callback'    => 'mod_trainingevent_observer::user_removed',
-        'includefile' => '/mod/trainingevent/classes/observer.php',
+        'callback'    => 'block_iomad_approve_access_observer::user_removed',
+        'includefile' => 'blocks/iomad_approve_access/classes/observer.php',
         'internal'    => false,
     ),
 
     array(
-        'eventname'   => '\block_iomad_approve_access\event\request_denied',
-        'callback'    => 'mod_trainingevent_observer::request_denied',
-        'includefile' => '/mod/trainingevent/classes/observer.php',
+        'eventname'   => '\mod_trainingevent\event\attendance_requested',
+        'callback'    => 'block_iomad_approve_access_observer::attendance_requested',
+        'includefile' => 'blocks/iomad_approve_access/classes/observer.php',
         'internal'    => false,
     ),
 
     array(
-        'eventname'   => '\core\event\course_module_completion_updated',
-        'callback'    => 'mod_trainingevent_observer::course_module_completion_updated',
-        'includefile' => '/mod/trainingevent/classes/observer.php',
+        'eventname'   => '\mod_trainingevent\event\attendance_withdrawn',
+        'callback'    => 'block_iomad_approve_access_observer::attendance_withdrawn',
+        'includefile' => 'blocks/iomad_approve_access/classes/observer.php',
         'internal'    => false,
     ),
 

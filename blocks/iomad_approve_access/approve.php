@@ -107,7 +107,7 @@ if ($data = $callform->get_data()) {
                 }
 
                 // Get the number of current attendees.
-                $numattendees = $DB->count_records('trainingevent_users', array('trainingeventid' => $event->id, 'waitlisted' => 0));
+                $numattendees = $DB->count_records('trainingevent_users', array('trainingeventid' => $event->id, 'waitlisted' => 0, 'approved' => 1));
 
                 // Is the event full?
                 if ($numattendees > $maxcapacity && $dataresult == 1) {
@@ -279,7 +279,7 @@ if ($data = $callform->get_data()) {
                         if ($location->isvirtual || $attending < $maxcapacity) {
                            $waitlisted = 0;
                         
-                        } else if ($event->haswaitlist) {
+                        } else if ($event->haswaitinglist) {
                             $waitlisted = 1;
                         } else {
                             $cancontinue = false;
@@ -307,7 +307,7 @@ if ($data = $callform->get_data()) {
                                 $usergroups = groups_get_user_groups($approvecourse->id, $approveuser->id);
                                 $userteachers = [];
                                 foreach ($usergroups as $usergroup => $junk) {
-                                    $userteachers = $userteachers + get_enrolled_users($context, 'mod/trainingevent:viewattendees', $usergroup);
+                                    $userteachers = $userteachers + get_enrolled_users(context_course::instance($approvecourse->id), 'mod/trainingevent:viewattendees', $usergroup);
                                 } 
                                 foreach ($userteachers as $userteacher) {
                                     EmailTemplate::send('user_signed_up_for_event_teacher', array('course' => $approvecourse,
@@ -318,6 +318,11 @@ if ($data = $callform->get_data()) {
                                                                                                   'event' => $event));
                                 }
                             }
+
+                            // Reset the module cache.
+                            $cm = get_coursemodule_from_instance('trainingevent', $event->id, $event->course);
+                            course_modinfo::purge_course_modules_cache($approvecourse->id, [$cm->id]);
+
                         }
                     } else if ($senddenied) {
                         EmailTemplate::send('course_classroom_denied', array('course' => $approvecourse,
